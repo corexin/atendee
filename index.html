@@ -7,21 +7,49 @@
 
     <h2>Full list</h2>
     <ul>
-      <li ng-repeat="guide in guides">{{guide}}</li>
+      <li ng-repeat="one in all">{{one}}</li>
     </ul>
     
     <h2>Paste attendees</h2>
-    <textarea  rows='11' ng-model="attendees" > </textarea><br/>
+    <textarea  rows='11' cols="30" ng-model="attendees"  ng-change="change()"> </textarea><br/>
 
      <h2>Generated list</h2>
     
-     <textarea  rows='11' ng-model="attendees" > </textarea><br/>
+     <textarea  rows='11' cols="30" ng-model="result" > </textarea><br/>
 
     
     <script>
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope) {
-    $scope.guides=  ['one', 'two', 'three', 'four', 'five', 'six', 'tom'];
+    $scope.all=  ['one', 'two', 'three', 'four', 'five', 'six', 'tom'];
+    
+    $scope.change = function() {
+        var allCopy =$scope.all.slice();
+        
+        var output = new Array(allCopy.length);
+        var notFound = new Array();
+ 
+            $scope.attendees.split(/\r?\n/).forEach((item, index) =>{
+                var idx = allCopy.indexOf(item);
+                console.log(idx);
+                if(idx>=0)
+                {
+                    output[idx]=item;
+                }
+                else {
+                       notFound.push(item);
+                }
+            });
+         
+        if(notFound.length>0)
+        {
+            output.push("Cannot find the following:");
+            output.push(notFound.join("\n"));
+        }
+        
+        $scope.result="";
+        $scope.result=output.join("\n");
+      };
     
 });
 </script>
