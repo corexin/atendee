@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+
+    <h2>Full list</h2>
+    <ul>
+      <li ng-repeat="guide in guides">{{guide}}</li>
+    </ul>
+    
+    <h2>Paste attendees</h2>
+    <textarea  rows='11' ng-model="attendees" > </textarea><br/>
+
+     <h2>Generated list</h2>
+    
+     <textarea  rows='11' ng-model="attendees" > </textarea><br/>
+
+    
+    <script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.guides=  ['one', 'two', 'three', 'four', 'five', 'six', 'tom'];
+    
+});
+</script>
+</body>
+</html>
