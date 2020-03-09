@@ -33,8 +33,8 @@ app.controller('myCtrl', function($scope) {
         var notFound = new Array();
  
             $scope.attendees.split(/\r?\n/).forEach((item, index) =>{
-                var index = item.indexOf(".");
-                var itemCleaned = item.substr(index+1).trim();
+                var itemCleaned = item.replace(/^\d+\.?/,"").trim();
+                console.log(itemCleaned);
                 var idx = allCopy.indexOf(itemCleaned);
                 if(idx>=0)
                 {
