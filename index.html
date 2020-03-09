@@ -2,24 +2,55 @@
 <html lang="zh" xml:lang="zh">
     <head>
         <meta charset="utf-8"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     </head>
 <body>
 
 <div ng-app="myApp" ng-controller="myCtrl">
-
-    <h2>Full list</h2>
-    <ul>
-      <li ng-repeat="one in all">{{one}}</li>
-    </ul>
+<div class="container">
+    <div class="row">
+        <div class="w-100">
+            <h2>Full list</h2>
+        </div>
+        <div class="w-100">
+            <ul>
+              <li ng-repeat="one in all">{{one}}</li>
+            </ul>
+        </div>
+    </div>
     
-    <h2>Paste attendees</h2>
-    <textarea  rows='11' cols="30" ng-model="attendees"  ng-change="change()"> </textarea><br/>
-
-     <h2>Generated list</h2>
+    <div class="row">
+         <div class="col-sm-auto">
+            <h2>Paste attendees</h2>
+        </div>
+        <div class="w-100"></div>
+         <div class="col-sm-auto">
+        <textarea  rows='11' cols="30" ng-model="attendees"  ng-change="change()"> </textarea><br/>
+        </div>
+    </div>
     
-     <textarea  rows='11' cols="30" ng-model="result" > </textarea><br/>
-
+    <div class="row">
+        <div class="col-sm-auto">
+            <h2>Generated list</h2>
+        </div>
+        <div class="col-sm-auto">
+            <h2>Generated count</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-auto">
+         <textarea  rows='11' cols="30" ng-model="result" > </textarea>
+        </div>
+        <div class="col-sm-auto">
+        <textarea  rows='11' cols="30" ng-model="resultIdx" > </textarea>
+        </div>
+    </div>
+</div>
     
     <script>
 var app = angular.module('myApp', []);
@@ -30,6 +61,7 @@ app.controller('myCtrl', function($scope) {
         var allCopy =$scope.all.slice(); 
         
         var output = new Array(allCopy.length);
+        var outputIdx = new Array(allCopy.length);
         var notFound = new Array();
  
             $scope.attendees.split(/\r?\n/).forEach((item, index) =>{
@@ -39,6 +71,7 @@ app.controller('myCtrl', function($scope) {
                 if(idx>=0)
                 {
                     output[idx]=itemCleaned;
+                    outputIdx[idx] = "1";
                 }
                 else {
                        notFound.push(itemCleaned);
@@ -53,6 +86,10 @@ app.controller('myCtrl', function($scope) {
         
         $scope.result="";
         $scope.result=output.join("\n");
+        
+        $scope.resultIdx="";
+        $scope.resultIdx=outputIdx.join("\n");
+        
       };
     
 });
