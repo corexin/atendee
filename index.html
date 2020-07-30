@@ -132,7 +132,7 @@ app.controller('myCtrl', function($scope) {
     function isInAttendList(item)
     {
         var attendeeList = getCleanedList($scope.attendees.split(/\r?\n/));
-        return attendeeList.includes(item);
+        return attendeeList.includes(item.trim().toLowerCase());
     }
     
     function getCleanedList(list)
@@ -141,7 +141,7 @@ app.controller('myCtrl', function($scope) {
         for(var i=0;i<list.length;i++)
         {
             var item = list[i];
-            var itemCleaned = item.replace(/^\d+\.?/,"").trim();
+            var itemCleaned = item.replace(/^\d+\.?/,"").trim().toLowerCase();
             
             result.push(itemCleaned);
         }
