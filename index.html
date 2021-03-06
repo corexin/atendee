@@ -1,154 +1,38 @@
-    <!DOCTYPE html>
-<html lang="zh" xml:lang="zh">
-    <head>
-        <meta charset="utf-8"/>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    </head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2022.3">
+  <style type="text/css">
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px 'Helvetica Neue'; color: #000000; -webkit-text-stroke: #000000; min-height: 13.0px}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px 'Helvetica Neue'; color: #000000; color: rgba(0, 0, 0, 0.85); -webkit-text-stroke: rgba(0, 0, 0, 0.85)}
+    li.li3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Songti SC'; color: #000000; -webkit-text-stroke: #000000}
+    li.li4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Songti SC'; color: #000000}
+    span.s1 {font-kerning: none}
+    span.s2 {font-kerning: none; background-color: #ffffff}
+    span.s3 {-webkit-text-stroke: 0px #000000}
+    span.s4 {font-kerning: none; color: #000000; background-color: #ffffff; -webkit-text-stroke: 0px #000000}
+    span.s5 {font: 12.0px 'Songti SC'; font-kerning: none; color: #000000; -webkit-text-stroke: 0px #000000}
+    span.s6 {font-kerning: none; background-color: #b3b3b3}
+    ol.ol1 {list-style-type: decimal}
+  </style>
+</head>
 <body>
-
-<div ng-app="myApp" ng-controller="myCtrl">
-<div class="container">
-        <div class="row">
-         <div class="col-md-5">
-            <h2>Paste attendees</h2>
-        </div>
-     </div>
- 
-    <div class="row">
-         <div class="col-sm-5">
-        <textarea  rows='11' cols="50" ng-model="attendees"  ng-change="change()"> </textarea><br/>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Full list</h2>
-        </div>
-        <div class="col-md-4">
-            <h2>Attendee Index list</h2>
-        </div>
-        <div class="col-md-4">
-            <h2>Index Only list</h2>
-        </div>
-
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <ol>
-              <li ng-repeat="one in all">{{one}}</li>
-            </ol>
-        </div>
-       <div class="col-md-4">
-
-            <ol>
-              <li ng-repeat="one1 in allOut track by $index" >{{one1}}</li>
-            </ol>
-        </div>
-        <div class="col-sm-4">
-            <textarea id="textarea" rows='35' cols="20" ng-model="result" > </textarea>
-            <button ng-click="copy()"  class="align-top">Copy</button>
-        </div>
-    </div>
-    
-
-</div>
-    
-    <script>
-var app = angular.module('myApp', []);
-app.controller('myCtrl', function($scope) {
-    $scope.all=  ['George','Guillaume -路过蜻蜓','卯日星君yao','冯冠群','浩宇','Ray','Zhao Qian','超','卞大逗','Andy','Lawrence','谢家的大少爷','麒云John','Xavier','Eric張廣宇 @ MG BNE ²⁰¹⁸','Kevin Hwa','Patrick 超','JACOB.HAO','SECON','Pak Hin','david@澳洲黄金海岸地产','Ewan','Max','Jupiter GU','Anthony','Meng','Jun','董世莹 Sam',
-        'JM','卢景昇(新秀丽)','Aaron 双龙一凤 继续戏猪'];
-    
-
-    $scope.change = function() {
-
-        var allCopy =$scope.all.slice(); 
-        let allOut1=new Array($scope.all.slice().length);    
-        var output = new Array(allCopy.length);
-        var found = new Array(allCopy.length);
-        var notFound = new Array();
- 
-        var attends = $scope.attendees.split(/\r?\n/);
-  
-        $scope.all.forEach((item,index)=>{
-            
-            var result = isInAttendList(item);
- 
-            if(result)
-            {
-                allOut1[index] = item;
-                
-            }
-            else {
-                
-               allOut1[index]= "";
-            }
-
-        });
- 
-        $scope.allOut=new Array();
-        allOut1.forEach((item, index)=>{
-          $scope.allOut.push(item);
-        });
- 
-       
-        $scope.attendees.split(/\r?\n/).forEach((item, index) =>{
-                var itemCleaned = item.replace(/^\d+\.?/,"").trim();
-
-                var idx = allCopy.indexOf(itemCleaned);
-                if(idx>=0)
-                {
- 
-                    found[idx]=itemCleaned;
-                    output[idx]="1";
-                }
-                else {
-                    found[idx] = "1";
-                    notFound.push(itemCleaned);
-                }
-            });
-         
-        if(notFound.length>0)
-        {
-            output.push("Cannot find the following:");
-            output.push(notFound.join("\n"));
-        }
-        
-        $scope.result="";
-        $scope.result=output.join("\n");
-
-      };
-     $scope.copy = function() {
-
-          let textarea = document.getElementById("textarea");
-          textarea.select();
-          document.execCommand("copy");
-    }
-    
-    function isInAttendList(item)
-    {
-        var attendeeList = getCleanedList($scope.attendees.split(/\r?\n/));
-        return attendeeList.includes(item.trim().toLowerCase());
-    }
-    
-    function getCleanedList(list)
-    { 
-        var result = new Array();
-        for(var i=0;i<list.length;i++)
-        {
-            var item = list[i];
-            var itemCleaned = item.replace(/^\d+\.?/,"").trim().toLowerCase();
-            
-            result.push(itemCleaned);
-        }
-        return result;
-    }
-    
-});
-</script>
+<h2 style="margin: 0.0px 0.0px 14.9px 0.0px; font: 18.0px 'Songti SC'; color: #000000; -webkit-text-stroke: #000000"><span class="s1"><b>Paste attendees</b></span></h2>
+<p class="p2"><span class="s2"><span class="Apple-converted-space"> </span></span></p>
+<h2 style="margin: 0.0px 0.0px 14.9px 0.0px; font: 18.0px 'Songti SC'; color: #000000; -webkit-text-stroke: #000000"><span class="s1"><b>Full list - test today</b></span></h2>
+<h2 style="margin: 0.0px 0.0px 14.9px 0.0px; font: 18.0px 'Songti SC'; color: #000000; -webkit-text-stroke: #000000"><span class="s1"><b>Attendee Index list</b></span></h2>
+<h2 style="margin: 0.0px 0.0px 14.9px 0.0px; font: 18.0px 'Songti SC'; color: #000000; -webkit-text-stroke: #000000"><span class="s1"><b>Index Only list</b></span></h2>
+<ol class="ol1">
+  <li class="li3"><span class="s3"></span><span class="s1">{{one}}</span></li>
+</ol>
+<ol class="ol1">
+  <li class="li3"><span class="s3"></span><span class="s1">{{one1}}</span></li>
+  <li class="li4"></li>
+</ol>
+<p class="p5"><span class="s4"><span class="Apple-converted-space"> </span></span><span class="s5"> </span><span class="s6">Copy</span><span class="s5"><span class="Apple-converted-space"> </span></span></p>
 </body>
 </html>
